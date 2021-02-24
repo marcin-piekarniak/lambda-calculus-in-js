@@ -6,6 +6,18 @@ succ = (w) => (y) => (x) => y(w(y)(x))
 add = (x) => (y) => x(succ)(y)
 multiply = (x) => (y) => (z) => x(y(z))
 
+divide = (n) => (m) => yCombinator((R) => (x) => 
+        ifThenElse(leastOrEqual(multiply(x)(m))(n))
+            (() => R(add(x)(my1)))
+            (() => subtract(x)(my1))
+            ()
+    )(my0)
+
+modulo = (n) => (m) => 
+    subtract
+        (n)
+        (multiply(m)(divide(n)(m)))
+
 my1 = succ(my0)
 my2 = succ(my1)
 my3 = succ(my2)
@@ -40,6 +52,11 @@ cons = (a) => (b) => (z) => z(a)(b)
 car = (p) => p(myTrue)
 cdr = (p) => p(myFalse)
 
+nil = myFalse
+isNil = (l) => l((h) => (t) => (d) => myFalse)(myTrue)
+
+print2(isNil(cons(my2)(nil)))
+
 // comparisons/recursion
 
 yCombinator = (R) => {
@@ -50,7 +67,7 @@ yCombinator = (R) => {
 phi = (p) => cons(succ(car(p)))(car(p))
 
 prec = (n) => cdr(n(phi)(cons(my0)(my0)))
-
+// prec2 = n => f => x => n(g => h => h(g(f)))(_ => x)(u => u)
 isZero = (x) => x(myFalse)(myNot)(myFalse)
 
 largerOrEqual = (x) => (y) => isZero(x(prec)(y))
@@ -186,14 +203,14 @@ L = append2(my4)(L2)
 
 // printNumber(head2((L2)))
 // printNumber(head2(next2(L)))
-print2(myFalse)
-print2(my0)
-print2(my1)
-print2(myTrue)
-print2(empty2)
-print2(append2(my4)(append2(my5)(empty2)))
-print2(append2(append2(my4)(append2(my5)(empty2)))
-              (append2(my4)(append2(my5)(empty2))))
+// print2(myFalse)
+// print2(my0)
+// print2(my1)
+// print2(myTrue)
+// print2(empty2)
+// print2(append2(my4)(append2(my5)(empty2)))
+// print2(append2(append2(my4)(append2(my5)(empty2)))
+//               (append2(my4)(append2(my5)(empty2))))
 module.exports = {
     my0,
     succ,
@@ -242,5 +259,7 @@ module.exports = {
     printListNoNewline2,
     printList2,
     printNoNewline2,
-    printList2,
+    print2,
+    modulo,
+    divide,
 }

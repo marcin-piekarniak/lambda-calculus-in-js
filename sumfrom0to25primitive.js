@@ -1,3 +1,12 @@
+/*  equivalent pretty
+sumUpTo = (n) => M.yCombinator((R) => (n) => {
+    return M.ifThenElse (M.isZero(n))
+            (() => my0)
+            (() => M.add(n)(R(M.prec(n))))
+        ()
+ })(n)
+M.printNumber(sumUpTo(M.multiply(M.my5)(M.my5))
+*/
 
 console.log(
     (num => num((x) => x + 1)(0))(
